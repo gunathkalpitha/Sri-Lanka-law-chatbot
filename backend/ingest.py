@@ -1,5 +1,9 @@
 # ingest.py - Load PDFs into ChromaDB
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_community.vectorstores import Chroma
@@ -16,9 +20,8 @@ def ingest_documents(pdf_path, persist_directory="./chroma_db"):
     )
     chunks = splitter.split_documents(documents)
     
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/embedding-001"
-    )
+    embedding_model = os.getenv("GOOGLE_EMBEDDING_MODEL", "models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model=embedding_model)
     
     db_path = str(Path(persist_directory).resolve())
 

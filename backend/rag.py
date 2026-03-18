@@ -1,11 +1,16 @@
 #part1-simplified the answer for user question 
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 def answer_question(user_question: str) -> dict:
 
 #step1: embedded the user question
     from langchain_google_genai import GoogleGenerativeAIEmbeddings #import libraries
-    import os
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embedding_model = os.getenv("GOOGLE_EMBEDDING_MODEL", "models/gemini-embedding-001")
+    embeddings = GoogleGenerativeAIEmbeddings(model=embedding_model)
     question_vector = embeddings.embed_query(user_question)
     
 #step2: Result save in chromaDB database
@@ -30,6 +35,7 @@ def answer_question(user_question: str) -> dict:
     """
     
     from langchain_google_genai import ChatGoogleGenerativeAI
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
+    llm_model = os.getenv("GOOGLE_LLM_MODEL", "gemini-2.5-flash")
+    llm = ChatGoogleGenerativeAI(model=llm_model, temperature=0)
     response = llm.invoke(prompt)
     return {"answer": response.content, "sources": results["metadatas"][0]}        
