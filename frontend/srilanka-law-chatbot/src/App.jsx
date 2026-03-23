@@ -35,8 +35,8 @@ function App() {
       <div className="blob blob-2" />
       <div className="blob blob-3" />
 
-      {/* ── Header ── */}
-      <header className="site-header">
+      {/* ── Header with hero background ── */}
+      <header className="site-header hero-bg">
         <div className="header-inner">
           <div className="header-brand">
             <div className="brand-icon">
@@ -48,7 +48,7 @@ function App() {
               </svg>
             </div>
             <div>
-              <div className="brand-label">National Legal Knowledge System</div>
+              <div className="brand-label">Legal Knowledge System</div>
               <h1 className="brand-title">LexCeylon</h1>
             </div>
           </div>
@@ -159,8 +159,8 @@ function App() {
           </div>
         </aside>
 
-        {/* Chat panel */}
-        <section className={`chat-panel ${activeTab === 'chat' ? 'mobile-active' : ''}`}>
+        {/* Chat panel with decorative watermark */}
+        <section className={`chat-panel ${activeTab === 'chat' ? 'mobile-active' : ''} chat-bg-watermark`}>
           <ChatInterface />
         </section>
       </main>
