@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { askQuestion } from '../api/client';
+import { useTranslation } from 'react-i18next';
 
 function TypingIndicator() {
   return (
@@ -59,12 +60,13 @@ function Message({ message }) {
   );
 }
 
-export default function ChatInterface() {
+export default function ChatInterface({ t }) {
+  const { t: tHook } = useTranslation();
   const [messages, setMessages] = useState([
     {
       id: 'welcome',
       type: 'bot',
-      content: 'Welcome to LexCeylon — your Sri Lankan legal assistant. Upload official legal PDFs, then ask questions in plain language. I will retrieve grounded, document-cited answers.',
+      content: t ? t('welcome') : tHook('welcome'),
     },
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -107,9 +109,9 @@ export default function ChatInterface() {
   };
 
   const suggestions = [
-    'What are fundamental rights under the Constitution?',
-    'Explain the law on defamation in Sri Lanka.',
-    'How does bail work under the Code of Criminal Procedure?',
+    t ? t('suggestion1') : tHook('suggestion1'),
+    t ? t('suggestion2') : tHook('suggestion2'),
+    t ? t('suggestion3') : tHook('suggestion3'),
   ];
 
   const showSuggestions = messages.length === 1 && !isLoading;
@@ -125,7 +127,7 @@ export default function ChatInterface() {
             </svg>
           </div>
           <div>
-            <div className="chat-title">Legal Assistant</div>
+            <div className="chat-title">{t ? t('legal_assistant') : tHook('legal_assistant')}</div>
             <div className="chat-subtitle">Powered by retrieval-augmented generation</div>
           </div>
         </div>
@@ -142,7 +144,7 @@ export default function ChatInterface() {
 
         {showSuggestions && (
           <div className="suggestions">
-            <div className="suggestions-label">Suggested questions</div>
+            <div className="suggestions-label">{t ? t('suggested_questions') : tHook('suggested_questions')}</div>
             <div className="suggestions-list">
               {suggestions.map((s, i) => (
                 <button key={i} className="suggestion-btn" onClick={() => {
@@ -171,7 +173,7 @@ export default function ChatInterface() {
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && !e.shiftKey && handleSend(e)}
-            placeholder="Ask a legal question about Sri Lankan law…"
+            placeholder={t ? t('ask_placeholder') : tHook('ask_placeholder')}
             disabled={isLoading}
             className="chat-input"
           />

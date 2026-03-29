@@ -1,0 +1,23 @@
+{
+  "en": {
+    "welcome": "Welcome to LexCeylon — your Sri Lankan legal assistant. Upload official legal PDFs, then ask questions in plain language. I will retrieve grounded, document-cited answers.",
+    "upload_pdf": "Upload Legal PDFs",
+    "legal_assistant": "Legal Assistant",
+    "suggested_questions": "Suggested questions",
+    "ask_placeholder": "Ask a legal question about Sri Lankan law…"
+  },
+  "si": {
+    "welcome": "LexCeylon වෙත සාදරයෙන් පිළිගනිමු — ඔබගේ ශ්‍රී ලංකා නීති උපදේශකයා. නිල නීති PDF ගොනු උඩුගත කරන්න, පසුව සාමාන්‍ය භාෂාවෙන් ප්‍රශ්න අසන්න. මම ඔබගේ ගොනු වලින්ම පිළිතුරු ලබා දෙන්නෙමි.",
+    "upload_pdf": "නීති PDF උඩුගත කරන්න",
+    "legal_assistant": "නීති උපදේශකයා",
+    "suggested_questions": "යෝජිත ප්‍රශ්න",
+    "ask_placeholder": "ශ්‍රී ලංකා නීතිය පිළිබඳ නීතිමය ප්‍රශ්නයක් අසන්න..."
+  },
+  "ta": {
+    "welcome": "LexCeylon-க்கு வரவேற்கின்றோம் — உங்கள் இலங்கை சட்ட உதவியாளர். அதிகாரப்பூர்வ சட்ட PDF-களை பதிவேற்றவும், பின்னர் சாதாரண மொழியில் கேள்விகள் கேளுங்கள். உங்கள் பதிவேற்றிய ஆவணங்களிலிருந்து பதில்கள் வழங்கப்படும்.",
+    "upload_pdf": "சட்ட PDF-களை பதிவேற்றவும்",
+    "legal_assistant": "சட்ட உதவியாளர்",
+    "suggested_questions": "பரிந்துரைக்கப்பட்ட கேள்விகள்",
+    "ask_placeholder": "இலங்கை சட்டம் குறித்த சட்ட கேள்வியை கேளுங்கள்..."
+  }
+}

@@ -2,8 +2,11 @@ import { useState, useEffect } from 'react'
 import DocumentUpload from './components/DocumentUpload'
 import ChatInterface from './components/ChatInterface'
 import { checkHealth } from './api/client'
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [isBackendReady, setIsBackendReady] = useState(false)
   const [backendError, setBackendError] = useState(null)
   const [documentsUploaded, setDocumentsUploaded] = useState([])
@@ -72,7 +75,7 @@ function App() {
         </div>
 
         <div className="header-tagline">
-          <p>Upload official legal PDFs · Ask questions in plain language · Get grounded, cited answers</p>
+          <p>{t('welcome')}</p>
         </div>
 
         {backendError && (
@@ -144,24 +147,43 @@ function App() {
           {/* Feature cards */}
           <div className="feature-grid">
             {[
-              { icon: '⚖', label: 'Constitutional Law', sub: 'Sri Lanka Constitution 1978' },
-              { icon: '📋', label: 'Civil Procedure', sub: 'Code of Civil Procedure' },
-              { icon: '🏛', label: 'Penal Code', sub: 'Offences & Penalties' },
-            ].map((f, i) => (
-              <div key={i} className="feature-chip">
-                <span className="feature-chip-icon">{f.icon}</span>
-                <div>
-                  <div className="feature-chip-label">{f.label}</div>
-                  <div className="feature-chip-sub">{f.sub}</div>
+              { icon: '⚖', label: 'Constitutional Law', sub: 'Sri Lanka Constitution 1978', link: 'https://www.parliament.lk/constitution' },
+              { icon: '📋', label: 'Civil Procedure', sub: 'Code of Civil Procedure', link: 'https://www.lawnet.gov.lk/act/civil-procedure-code/' },
+              { icon: '🏛', label: 'Penal Code', sub: 'Offences & Penalties', link: 'https://www.lawnet.gov.lk/act/penal-code/' },
+              { icon: '🏛', label: 'Parliament Acts', sub: 'Legislative Documents', link: 'https://www.parliament.lk' }
+            ].map((f, i) => {
+              const chipContent = (
+                <>
+                  <span className="feature-chip-icon">{f.icon}</span>
+                  <div>
+                    <div className="feature-chip-label">{f.label}</div>
+                    <div className="feature-chip-sub">{f.sub}</div>
+                  </div>
+                </>
+              );
+              return f.link ? (
+                <a
+                  key={i}
+                  className="feature-chip"
+                  href={f.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  {chipContent}
+                </a>
+              ) : (
+                <div key={i} className="feature-chip">
+                  {chipContent}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </aside>
 
         {/* Chat panel with decorative watermark */}
         <section className={`chat-panel ${activeTab === 'chat' ? 'mobile-active' : ''} chat-bg-watermark`}>
-          <ChatInterface />
+          <ChatInterface t={t} />
         </section>
       </main>
 
@@ -437,9 +459,34 @@ function App() {
           border-radius: var(--radius-md);
           box-shadow: var(--shadow-sm);
           cursor: default;
-          transition: box-shadow 0.2s, border-color 0.2s;
+          transition: box-shadow 0.2s, border-color 0.2s, transform 0.18s cubic-bezier(.4,1.4,.6,1), background 0.18s;
         }
         .feature-chip:hover { border-color: var(--border-med); box-shadow: var(--shadow-md); }
+        /* Animation for clickable feature chips (links) */
+        a.feature-chip {
+          cursor: pointer;
+          position: relative;
+          z-index: 1;
+        }
+        a.feature-chip::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: var(--radius-md);
+          background: rgba(201,168,76,0.08);
+          opacity: 0;
+          transition: opacity 0.18s;
+          z-index: -1;
+        }
+        a.feature-chip:hover {
+          transform: scale(1.045) translateY(-2px) rotate(-0.5deg);
+          box-shadow: 0 8px 32px rgba(201,168,76,0.13), 0 2px 8px rgba(15,30,58,0.10);
+          border-color: var(--gold);
+          background: var(--surface);
+        }
+        a.feature-chip:hover::after {
+          opacity: 1;
+        }
         .feature-chip-icon { font-size: 20px; flex-shrink: 0; }
         .feature-chip-label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
         .feature-chip-sub { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
@@ -475,7 +522,7 @@ function App() {
         }
       `}</style>
     </div>
-  )
+  );
 }
 
 export default App
