@@ -6,6 +6,15 @@ import './i18n';
 import { useTranslation } from 'react-i18next';
 
 function App() {
+    const languages = [
+      { code: 'en', label: 'English' },
+      { code: 'si', label: 'සිංහල' },
+      { code: 'ta', label: 'தமிழ்' },
+    ];
+
+    const handleLanguageChange = (e) => {
+      i18n.changeLanguage(e.target.value);
+    };
   const { t, i18n } = useTranslation();
   const [isBackendReady, setIsBackendReady] = useState(false)
   const [backendError, setBackendError] = useState(null)
@@ -56,7 +65,7 @@ function App() {
             </div>
           </div>
 
-          <div className="header-meta">
+          <div className="header-meta" style={{ gap: 18 }}>
             <div className={`status-pill ${isBackendReady ? 'status-online' : 'status-offline'}`}>
               <span className="status-dot" />
               {isBackendReady ? 'System Online' : 'Offline'}
@@ -71,11 +80,23 @@ function App() {
                 <span className="stat-label">Mode</span>
               </div>
             </div>
+            <div className="lang-switcher">
+              <select
+                value={i18n.language}
+                onChange={handleLanguageChange}
+                className="lang-select"
+                aria-label="Select language"
+              >
+                {languages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>{lang.label}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
         <div className="header-tagline">
-          <p>{t('welcome')}</p>
+          <p>{t('welcome').replace(/Sri Lankan legal assistant|Sri Lanka legal assistant|Sri Lankan legal assistant/gi, 'legal assistant')}</p>
         </div>
 
         {backendError && (
@@ -188,7 +209,7 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <span>© 2026 LexCeylon · Sri Lanka Law Chatbot</span>
+        <span>© 2026 LexCeylon · LexCeylon Law Chatbot</span>
         <span className="footer-dot">·</span>
         <span>React + FastAPI · Retrieval-Augmented Generation</span>
         <span className="footer-dot">·</span>
@@ -196,6 +217,24 @@ function App() {
       </footer>
 
       <style>{`
+                .lang-switcher {
+                  margin-left: 10px;
+                }
+                .lang-select {
+                  padding: 5px 14px;
+                  border-radius: var(--radius-sm);
+                  border: 1px solid var(--border);
+                  background: var(--surface-3);
+                  color: var(--navy-mid);
+                  font-size: 13px;
+                  font-weight: 500;
+                  outline: none;
+                  transition: border-color 0.18s;
+                  cursor: pointer;
+                }
+                .lang-select:focus, .lang-select:hover {
+                  border-color: var(--gold);
+                }
         /* ── Fonts ── */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
