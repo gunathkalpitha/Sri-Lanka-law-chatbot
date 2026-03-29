@@ -421,6 +421,32 @@ function App() {
           padding: 1px 6px; border-radius: 999px; margin-left: 2px;
         }
 
+        /* ── Button and input polish ── */
+        button, .lang-select {
+          transition: background 0.18s, color 0.18s, box-shadow 0.18s, border-color 0.18s;
+        }
+        button:focus, .lang-select:focus {
+          outline: 2px solid var(--gold);
+          outline-offset: 2px;
+        }
+        button:hover:not(:disabled), .lang-select:hover:not(:disabled) {
+          background: var(--gold-pale);
+          color: var(--navy);
+        }
+        button:active:not(:disabled), .lang-select:active:not(:disabled) {
+          background: var(--gold-light);
+          color: var(--navy-mid);
+        }
+
+        /* ── Fade-in animation for main layout ── */
+        .main-layout {
+          animation: fadeInMain 0.7s cubic-bezier(.4,1.4,.6,1);
+        }
+        @keyframes fadeInMain {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: none; }
+        }
+
         /* ── Main layout ── */
         .main-layout {
           position: relative; z-index: 5;
